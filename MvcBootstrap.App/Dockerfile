@@ -7,16 +7,16 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["MvcBootstrap.csproj", "."]
-RUN dotnet restore "./MvcBootstrap.csproj"
+COPY ["MvcBootstrap.App/MvcBootstrap.App.csproj", "MvcBootstrap.App/"]
+RUN dotnet restore "MvcBootstrap.App/MvcBootstrap.App.csproj"
 COPY . .
-WORKDIR "/src/."
-RUN dotnet build "MvcBootstrap.csproj" -c Release -o /app/build
+WORKDIR "/src/MvcBootstrap.App"
+RUN dotnet build "MvcBootstrap.App.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "MvcBootstrap.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "MvcBootstrap.App.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "MvcBootstrap.dll"]
+ENTRYPOINT ["dotnet", "MvcBootstrap.App.dll"]
