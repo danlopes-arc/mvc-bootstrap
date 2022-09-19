@@ -4,7 +4,7 @@ name: CD
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
+    branches: [ "use-railway" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -21,11 +21,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       
-      - name: Install fly cli
-        run: curl -L https://fly.io/install.sh | sh
-        
-      - name: Login to fly
-        run: /home/runner/.fly/bin/flyctl auth login --email ${{ secrets.FLY_EMAIL }} --password ${{ secrets.FLY_PASSWORD }}
+      - name: Install railway cli
+        run: curl -fsSL https://railway.app/install.sh | sh
 
-      - name: Deploy to fly
-        run: /home/runner/.fly/bin/flyctl deploy
+      - name: Link project
+        run: RAILWAY_TOKEN=${{ secrets.RAILWAY_TOKEN }} railway link ${{ secrets.RAILWAY_PROJECT_ID }}
+
+      - name: Deploy to railway
+        run: RAILWAY_TOKEN=${{ secrets.RAILWAY_TOKEN }} railway up
