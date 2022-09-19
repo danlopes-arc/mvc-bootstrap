@@ -1,9 +1,12 @@
-# fly.toml file generated for young-fire-1502 on 2022-09-15T23:08:22-04:00
+# fly.toml file generated for floral-night-5251 on 2022-09-18T23:11:34-04:00
 
-app = "young-fire-1502"
+app = "floral-night-5251"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
+
+[build]
+  dockerfile = "./MvcBootstrap.App/Dockerfile"
 
 [env]
 
