@@ -1,4 +1,4 @@
-name: CD
+name: CD Production
 
 # Controls when the workflow will run
 on:
@@ -24,8 +24,5 @@ jobs:
       - name: Install railway cli
         run: curl -fsSL https://railway.app/install.sh | sh
 
-      - name: Link project
-        run: RAILWAY_TOKEN=${{ secrets.RAILWAY_TOKEN }} railway link ${{ secrets.RAILWAY_PROJECT_ID }}
-
       - name: Deploy to railway
-        run: RAILWAY_TOKEN=${{ secrets.RAILWAY_TOKEN }} railway up
+        run: RAILWAY_TOKEN=${{ secrets.RAILWAY_TOKEN_PROD }} railway up
