@@ -1,10 +1,10 @@
-name: CD
+name: CD Development
 
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "setup-fly" ]
+    branches: [ "development" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -28,4 +28,4 @@ jobs:
         run: curl -L https://fly.io/install.sh | sh
 
       - name: Deploy to fly
-        run: /home/runner/.fly/bin/flyctl -t ${{ secrets.FLY_TOKEN_PROD }} deploy -c fly.production.toml
+        run: /home/runner/.fly/bin/flyctl -t ${{ secrets.FLY_TOKEN_DEV }} deploy -c fly.development.toml
